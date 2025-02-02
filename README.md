@@ -1,1 +1,1 @@
-My configuration of zerologger.
+My configuration of zerolog.
