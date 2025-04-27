@@ -30,7 +30,20 @@ func NewProductionLogger() *zerolog.Logger {
 	return &logger
 }
 
-func NewTestLogger(logDir, filename string) *zerolog.Logger {
+// NewTestLogger creates a logger that writes to a file in the log directory.
+// first argument is the log directory, second argument is the log file name.
+func NewTestLogger(paths ...string) *zerolog.Logger {
+	filename := ""
+	logDir := ""
+
+	if len(paths) > 0 {
+		logDir = paths[0]
+	}
+
+	if len(paths) > 1 {
+		filename = paths[1]
+	}
+
 	if filename == "" {
 		filename = "test.log"
 	}
