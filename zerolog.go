@@ -68,8 +68,6 @@ func NewTestLogger(paths ...string) *zerolog.Logger {
 
 	logPath := filepath.Join(logDir, filename)
 
-	fmt.Println("Logging to file:", logPath)
-
 	const logFilePerm = 0o644
 	logFile, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, logFilePerm)
 	if err != nil {
