@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/mattn/go-isatty"
 	"github.com/rs/zerolog"
@@ -25,7 +26,7 @@ func NewLogger(mode string) *zerolog.Logger {
 }
 
 func NewProductionLogger() *zerolog.Logger {
-	logger := zerolog.New(os.Stdout).With().Timestamp().Logger()
+	logger := zerolog.New(os.Stdout).With().Time("time", time.Now()).Logger()
 
 	return &logger
 }
@@ -79,11 +80,11 @@ func NewTestLogger(paths ...string) *zerolog.Logger {
 
 	writer := zerolog.ConsoleWriter{
 		Out:        logFile,
-		TimeFormat: "02-01-2006 15:04:05 Z07:00",
+		TimeFormat: "02-01-2006 15:04:05",
 		NoColor:    true,
 	}
 
-	logger := zerolog.New(writer).With().Timestamp().Logger()
+	logger := zerolog.New(writer).With().Time("time", time.Now()).Logger()
 
 	return &logger
 }
@@ -94,11 +95,11 @@ func NewDevelopmentLogger() *zerolog.Logger {
 
 	writer := zerolog.ConsoleWriter{
 		Out:        os.Stdout,
-		TimeFormat: "02-01-2006 15:04:05 Z07:00",
+		TimeFormat: "02-01-2006 15:04:05",
 		NoColor:    !isTerminal,
 	}
 
-	logger := zerolog.New(writer).With().Timestamp().Logger()
+	logger := zerolog.New(writer).With().Time("time", time.Now()).Logger()
 
 	return &logger
 }
